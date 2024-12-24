@@ -1,5 +1,7 @@
 package org.example.DAO;
 
+import org.example.entity.Player;
+import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

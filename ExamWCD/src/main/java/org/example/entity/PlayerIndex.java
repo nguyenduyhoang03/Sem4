@@ -19,6 +19,36 @@ public class PlayerIndex {
 
     private float value;
 
-    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Indexer getIndexer() {
+        return indexer;
+    }
+
+    public void setIndexer(Indexer indexer) {
+        this.indexer = indexer;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public void setValue(float value) {
+        this.value = value;
+    }
 }
 
