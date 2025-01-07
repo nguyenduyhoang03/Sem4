@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout :: head"></head>
+<body>
+<div th:replace="layout :: body">
+    <h1 class="text-center">Quản lý Nhân viên</h1>
+    <div class="mb-3">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">Thêm Nhân viên</a>
+        <input type="text" id="searchInput" class="form-control mt-3" placeholder="Tìm kiếm theo tên">
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Chức vụ</th>
+            <th>Lương</th>
+            <th>Ngày gia nhập</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody id="employeeTable">
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.position}"></td>
+            <td th:text="${employee.salary}"></td>
+            <td th:text="${#dates.format(employee.dateOfJoining, 'dd-MM-yyyy')}"></td>
+            <td>
+                <a href="#" class="btn btn-warning btn-sm" th:attr="data-id=${employee.id}" data-bs-toggle="modal" data-bs-target="#employeeModal">Sửa</a>
+                <a href="#" class="btn btn-danger btn-sm" th:attr="data-id=${employee.id}" onclick="deleteEmployee(event, this)">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeModalLabel">Thêm/Sửa Nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="employeeForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="position" class="form-label">Chức vụ</label>
+                        <input type="text" class="form-control" id="position" name="position" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Lương</label>
+                        <input type="number" class="form-control" id="salary" name="salary" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateOfJoining" class="form-label">Ngày gia nhập</label>
+                        <input type="date" class="form-control" id="dateOfJoining" name="dateOfJoining" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('keyup', function () {
+            const value = $(this).val().toLowerCase();
+            $('#employeeTable tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        $('#employeeForm').on('submit', function (e) {
+            e.preventDefault();
+            const formData = $(this).serialize();
+            // TODO: Call the API to save/update the employee
+        });
+    });
+
+    function deleteEmployee(event, element) {
+        event.preventDefault();
+        const id = $(element).data('id');
+        // TODO: Call the API to delete the employee
+    }
+</script>
+</body>
+</html>
